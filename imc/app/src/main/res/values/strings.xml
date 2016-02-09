@@ -12,4 +12,5 @@
     <string name="res">Vous devez cliquer sur le bouton « Calculer l\'IMC » pour obtenir un résultat.</string>
     <string name="trPti">Hého, tu es un Minipouce ou quoi ?</string>
     <string name="mega">"Vous faites un poids parfait ! Wahou ! Trop fort ! On dirait Brad Pitt (si vous êtes un homme)/Angelina Jolie (si vous êtes une femme)/Willy (si vous êtes un orque) !</string>
+    <string name="resIMC">Votre IMC est </string>
 </resources>

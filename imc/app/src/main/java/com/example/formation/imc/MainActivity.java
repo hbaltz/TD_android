@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity{
     private String raz = null;
     private String trPti = null;
     private String mega = null;
+    private String resIMC = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity{
         textViewRes = (TextView)findViewById(R.id.textViewRes);
         group = (RadioGroup)findViewById(R.id.group);
         mega = getResources().getString(R.string.mega);
+        resIMC = getResources().getString(R.string.resIMC);
 
         // Remplissage des zones de texte :
         poidsTxt.setText(poids);
@@ -112,8 +114,7 @@ public class MainActivity extends AppCompatActivity{
 
             if (!t.isEmpty() && !p.isEmpty()){
                 buttonIMC.setEnabled(true);
-            }
-            if (t.isEmpty() || p.isEmpty()){
+            }else {
                 buttonIMC.setEnabled(false);
             }
 
@@ -151,8 +152,8 @@ public class MainActivity extends AppCompatActivity{
 
                     tValue = (float)Math.pow(tValue, 2);
                     float imc = pValue / tValue;
-                    textViewRes.setText("Votre IMC est " + String.valueOf(imc));
-                    Toast.makeText(MainActivity.this, "Votre IMC est " + String.valueOf(imc), Toast.LENGTH_SHORT).show();
+                    textViewRes.setText(resIMC + " "+ String.valueOf(imc));
+                    Toast.makeText(MainActivity.this, resIMC + " " + String.valueOf(imc), Toast.LENGTH_SHORT).show();
                 }
             }else{
                 textViewRes.setText(mega);
@@ -183,6 +184,4 @@ public class MainActivity extends AppCompatActivity{
     /**
      *  Fonctionnalités :
      */
-
-
 }
