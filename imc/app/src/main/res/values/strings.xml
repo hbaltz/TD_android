@@ -10,4 +10,5 @@
     <string name="imc">Calculer l\'IMC</string>
     <string name="raz">Raz</string>
     <string name="res">Vous devez cliquer sur le bouton « Calculer l\'IMC » pour obtenir un résultat.</string>
+    <string name="trPti">Hého, tu es un Minipouce ou quoi ?</string>
 </resources>

@@ -2,18 +2,19 @@ package com.example.formation.imc;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.CheckBox ;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -25,6 +26,21 @@ public class MainActivity extends AppCompatActivity{
     private CheckBox checkBoxMF = null;
     private Button buttonIMC = null;
     private Button buttonRAZ = null;
+    private RadioGroup group = null;
+
+    TextView poidsTxt = null;
+    TextView tailleTxt = null;
+    TextView textViewRes = null;
+
+    String res = "Test";
+    String poids = null;
+    String taille = null;
+    String metre = null;
+    String centimetre = null;
+    String mf = null;
+    String imc = null;
+    String raz = null;
+    String trPti = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +50,27 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         // Recuperation des ressources :
-        String poids = getResources().getString(R.string.poids);
-        String taille = getResources().getString(R.string.taille);
-        String metre = getResources().getString(R.string.metre);
-        String centimetre = getResources().getString(R.string.centimetre);
-        String mf = getResources().getString(R.string.mf);
-        String imc = getResources().getString(R.string.imc);
-        String raz = getResources().getString(R.string.raz);
-        String res = getResources().getString(R.string.res);
+        poids = getResources().getString(R.string.poids);
+        taille = getResources().getString(R.string.taille);
+        metre = getResources().getString(R.string.metre);
+        centimetre = getResources().getString(R.string.centimetre);
+        mf = getResources().getString(R.string.mf);
+        imc = getResources().getString(R.string.imc);
+        raz = getResources().getString(R.string.raz);
+        res = getResources().getString(R.string.res);
 
-        // Recuperation des zones de texte et des différents widgets :
-        TextView poidsTxt = (TextView)findViewById(R.id.poidsTxt);
-        EditText editPoids = (EditText)findViewById(R.id.editPoids);
-        TextView tailleTxt = (TextView)findViewById(R.id.tailleTxt);
-        EditText editTaille = (EditText)findViewById(R.id.editTaille);
-        RadioButton radioButtonM = (RadioButton)findViewById(R.id.radioButtonM);
-        RadioButton radioButtonC = (RadioButton)findViewById(R.id.radioButtonC);
-        CheckBox checkBoxMF = (CheckBox)findViewById(R.id.checkBoxMF);
-        Button buttonIMC = (Button)findViewById(R.id.buttonIMC);
-        Button buttonRAZ = (Button)findViewById(R.id.buttonRAZ);
-        TextView textViewRes = (TextView)findViewById(R.id.textViewRes);
+        // Recuperation des views :
+        poidsTxt = (TextView)findViewById(R.id.poidsTxt);
+        editPoids = (EditText)findViewById(R.id.editPoids);
+        tailleTxt = (TextView)findViewById(R.id.tailleTxt);
+        editTaille = (EditText)findViewById(R.id.editTaille);
+        radioButtonM = (RadioButton)findViewById(R.id.radioButtonM);
+        radioButtonC = (RadioButton)findViewById(R.id.radioButtonC);
+        checkBoxMF = (CheckBox)findViewById(R.id.checkBoxMF);
+        buttonIMC = (Button)findViewById(R.id.buttonIMC);
+        buttonRAZ = (Button)findViewById(R.id.buttonRAZ);
+        textViewRes = (TextView)findViewById(R.id.textViewRes);
+        group = (RadioGroup)findViewById(R.id.group);
 
         // Remplissage des zones de texte :
         poidsTxt.setText(poids);
@@ -67,5 +84,73 @@ public class MainActivity extends AppCompatActivity{
         buttonRAZ.setText(raz);
         textViewRes.setText(res);
 
+        // Attribution des listeners :
+        buttonIMC.setOnClickListener(buttonIMCListener);
+        buttonRAZ.setOnClickListener(buttonRAZListener);
+        tailleTxt.addTextChangedListener(textWatcher);
+        poidsTxt.addTextChangedListener(textWatcher);
+        //checkBoxMF.setOnClickListener(checkedListener);
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            textViewRes.setText(res);
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override
+        public void afterTextChanged(Editable s) {}
+    };
+
+    // Uniquement pour le bouton imc :
+    private OnClickListener buttonIMCListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            textViewRes.setText("Yeah");
+
+
+
+            // On récupère la taille
+            String t = tailleTxt.getText().toString();
+            // On récupère le poids
+            String p = poidsTxt.getText().toString();
+
+            float tValue = Float.valueOf(t); // Todo debug
+            /*
+            trPti = getResources().getString(R.string.trPti);
+
+            float pValue = Float.valueOf(p);
+
+            tValue = (float)Math.pow(tValue, 2);
+            float imc = pValue / tValue;
+            textViewRes.setText("Votre IMC est " + String.valueOf(imc));
+
+            // On vérifie que la taille est cohérente :
+            if(tValue == 0) {
+                Toast.makeText(MainActivity.this, trPti, Toast.LENGTH_SHORT).show();
+            }else {
+                float pValue = Float.valueOf(p);
+                // Si l'utilisateur a indiqué que la taille était en centimètres :
+                if(group.getCheckedRadioButtonId() == R.id.radioButtonC) {
+                    tValue = tValue / 100;
+                }
+
+                tValue = (float)Math.pow(tValue, 2);
+                float imc = pValue / tValue;
+                textViewRes.setText("Votre IMC est " + String.valueOf(imc));
+            }
+            */
+        }
+    };
+
+    // Listener du bouton de remise à zéro
+    private OnClickListener buttonRAZListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            poidsTxt.setText(poids);
+            tailleTxt.setText(taille);
+            textViewRes.setText(res);
+        }
+    };
 }

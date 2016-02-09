@@ -58,32 +58,41 @@
         android:layout_below="@+id/poidsTxt"
         android:layout_centerHorizontal="true" />
 
-    <RadioButton
+    <RadioGroup
+        android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radioButtonM"
         android:layout_below="@+id/editTaille"
         android:layout_alignLeft="@+id/editTaille"
         android:layout_alignStart="@+id/editTaille"
-        android:layout_marginTop="29dp"
-        android:checked="true" />
+        android:checkedButton="@+id/radioButtonC"
+        android:orientation="horizontal">
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/radioButtonC"
-        android:layout_alignBottom="@+id/radioButtonM"
-        android:layout_toRightOf="@+id/radioButtonM"
-        android:layout_toEndOf="@+id/radioButtonM"
-        android:checked="false" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonM"
+            android:layout_marginTop="29dp"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonC"
+            android:layout_below="@+id/radioButtonM"
+            android:layout_alignLeft="@+id/radioButtonM"
+            android:layout_alignStart="@+id/radioButtonM"
+            android:checked="false" />
+
+    </RadioGroup>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkBoxMF"
-        android:layout_below="@+id/radioButtonM"
-        android:layout_alignLeft="@+id/radioButtonM"
-        android:layout_alignStart="@+id/radioButtonM"
+        android:layout_below="@+id/group"
+        android:layout_alignLeft="@+id/group"
+        android:layout_alignStart="@+id/group"
         android:checked="false" />
 
     <Button
