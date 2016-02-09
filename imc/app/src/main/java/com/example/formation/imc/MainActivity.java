@@ -28,19 +28,20 @@ public class MainActivity extends AppCompatActivity{
     private Button buttonRAZ = null;
     private RadioGroup group = null;
 
-    TextView poidsTxt = null;
-    TextView tailleTxt = null;
-    TextView textViewRes = null;
+    private TextView poidsTxt = null;
+    private TextView tailleTxt = null;
+    private TextView textViewRes = null;
 
-    String res = "Test";
-    String poids = null;
-    String taille = null;
-    String metre = null;
-    String centimetre = null;
-    String mf = null;
-    String imc = null;
-    String raz = null;
-    String trPti = null;
+    private String res = "Test";
+    private String poids = null;
+    private String taille = null;
+    private String metre = null;
+    private String centimetre = null;
+    private String mf = null;
+    private String imc = null;
+    private String raz = null;
+    private String trPti = null;
+    private String mega = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity{
         buttonRAZ = (Button)findViewById(R.id.buttonRAZ);
         textViewRes = (TextView)findViewById(R.id.textViewRes);
         group = (RadioGroup)findViewById(R.id.group);
+        mega = getResources().getString(R.string.mega);
 
         // Remplissage des zones de texte :
         poidsTxt.setText(poids);
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity{
         buttonRAZ.setOnClickListener(buttonRAZListener);
         tailleTxt.addTextChangedListener(textWatcher);
         poidsTxt.addTextChangedListener(textWatcher);
-        //checkBoxMF.setOnClickListener(checkedListener);
+        checkBoxMF.setOnClickListener(checkedListener);
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -107,28 +109,32 @@ public class MainActivity extends AppCompatActivity{
     private OnClickListener buttonIMCListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            // On récupère la taille
-            String t = editPoids.getText().toString();
-            // On récupère le poids
-            String p = editTaille.getText().toString();
+            if(!checkBoxMF.isChecked()) {
+                // On récupère la taille
+                String t = editPoids.getText().toString();
+                // On récupère le poids
+                String p = editTaille.getText().toString();
 
-            float tValue = Float.valueOf(t);
+                float tValue = Float.valueOf(t);
 
-            trPti = getResources().getString(R.string.trPti);
+                trPti = getResources().getString(R.string.trPti);
 
-            // On vérifie que la taille est cohérente :
-            if(tValue == 0) {
-                Toast.makeText(MainActivity.this, trPti, Toast.LENGTH_SHORT).show();
-            }else {
-                float pValue = Float.valueOf(p);
-                // Si l'utilisateur a indiqué que la taille était en centimètres :
-                if(group.getCheckedRadioButtonId() == R.id.radioButtonC) {
-                    tValue = tValue / 100;
+                // On vérifie que la taille est cohérente :
+                if(tValue == 0) {
+                    Toast.makeText(MainActivity.this, trPti, Toast.LENGTH_SHORT).show();
+                }else {
+                    float pValue = Float.valueOf(p);
+                    // Si l'utilisateur a indiqué que la taille était en centimètres :
+                    if(group.getCheckedRadioButtonId() == R.id.radioButtonC) {
+                        tValue = tValue / 100;
+                    }
+
+                    tValue = (float)Math.pow(tValue, 2);
+                    float imc = pValue / tValue;
+                    textViewRes.setText("Votre IMC est " + String.valueOf(imc));
                 }
-
-                tValue = (float)Math.pow(tValue, 2);
-                float imc = pValue / tValue;
-                textViewRes.setText("Votre IMC est " + String.valueOf(imc));
+            }else{
+                textViewRes.setText(mega);
             }
         }
     };
@@ -140,6 +146,16 @@ public class MainActivity extends AppCompatActivity{
             editPoids.getText().clear();
             editTaille.getText().clear();
             textViewRes.setText(res);
+        }
+    };
+
+    // Listener du bouton de la megafonction.
+    private OnClickListener checkedListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // On remet le texte par défaut si c'était le texte de la megafonction qui était écrit
+            if(!((CheckBox)v).isChecked() && textViewRes.getText().equals(mega))
+                textViewRes.setText(res);
         }
     };
 }
