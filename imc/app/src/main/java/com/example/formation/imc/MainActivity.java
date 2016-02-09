@@ -106,9 +106,9 @@ public class MainActivity extends AppCompatActivity{
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             // On récupère la taille
-            String t = editPoids.getText().toString();
+            String t = editTaille.getText().toString();
             // On récupère le poids
-            String p = editTaille.getText().toString();
+            String p = editPoids.getText().toString();
 
             if (!t.isEmpty() && !p.isEmpty()){
                 buttonIMC.setEnabled(true);
@@ -131,9 +131,9 @@ public class MainActivity extends AppCompatActivity{
         public void onClick(View v) {
             if(!checkBoxMF.isChecked()) {
                 // On récupère la taille
-                String t = editPoids.getText().toString();
+                String t = editTaille.getText().toString();
                 // On récupère le poids
-                String p = editTaille.getText().toString();
+                String p = editPoids.getText().toString();
 
                 float tValue = Float.valueOf(t);
 
@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity{
                     tValue = (float)Math.pow(tValue, 2);
                     float imc = pValue / tValue;
                     textViewRes.setText("Votre IMC est " + String.valueOf(imc));
+                    Toast.makeText(MainActivity.this, "Votre IMC est " + String.valueOf(imc), Toast.LENGTH_SHORT).show();
                 }
             }else{
                 textViewRes.setText(mega);
