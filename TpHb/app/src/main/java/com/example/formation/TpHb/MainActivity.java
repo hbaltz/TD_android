@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,8 +14,19 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.CheckBox ;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+
+    // Déclaration des variables pour les évenements:
+    private EditText editPoids = null;
+    private EditText editTaille = null;
+    private RadioButton radioButtonM = null;
+    private RadioButton radioButtonC = null;
+    private CheckBox checkBoxMF = null;
+    private Button buttonIMC = null;
+    private Button buttonRAZ = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         String raz = getResources().getString(R.string.raz);
         String res = getResources().getString(R.string.res);
 
-        // Recuperation des zones de texte
+        // Recuperation des zones de texte et des différents widgets :
         TextView poidsTxt = (TextView)findViewById(R.id.poidsTxt);
         EditText editPoids = (EditText)findViewById(R.id.editPoids);
         TextView tailleTxt = (TextView)findViewById(R.id.tailleTxt);
@@ -86,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         buttonIMC.setText(imc);
         buttonRAZ.setText(raz);
         textViewRes.setText(res);
+
+        
     }
 
 
