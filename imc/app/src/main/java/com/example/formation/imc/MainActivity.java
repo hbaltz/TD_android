@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity{
 
         // Remplissage des zones de texte :
         poidsTxt.setText(poids);
-        editPoids.setText(poids);
+        editPoids.setHint(poids);
         tailleTxt.setText(taille);
-        editTaille.setText(taille);
+        editTaille.setHint(taille);
         radioButtonM.setText(metre);
         radioButtonC.setText(centimetre);
         checkBoxMF.setText(mf);
@@ -107,24 +107,14 @@ public class MainActivity extends AppCompatActivity{
     private OnClickListener buttonIMCListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            textViewRes.setText("Yeah");
-
-
-
             // On récupère la taille
-            String t = tailleTxt.getText().toString();
+            String t = editPoids.getText().toString();
             // On récupère le poids
-            String p = poidsTxt.getText().toString();
+            String p = editTaille.getText().toString();
 
-            float tValue = Float.valueOf(t); // Todo debug
-            /*
+            float tValue = Float.valueOf(t);
+
             trPti = getResources().getString(R.string.trPti);
-
-            float pValue = Float.valueOf(p);
-
-            tValue = (float)Math.pow(tValue, 2);
-            float imc = pValue / tValue;
-            textViewRes.setText("Votre IMC est " + String.valueOf(imc));
 
             // On vérifie que la taille est cohérente :
             if(tValue == 0) {
@@ -140,7 +130,6 @@ public class MainActivity extends AppCompatActivity{
                 float imc = pValue / tValue;
                 textViewRes.setText("Votre IMC est " + String.valueOf(imc));
             }
-            */
         }
     };
 
@@ -148,8 +137,8 @@ public class MainActivity extends AppCompatActivity{
     private OnClickListener buttonRAZListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            poidsTxt.setText(poids);
-            tailleTxt.setText(taille);
+            editPoids.getText().clear();
+            editTaille.getText().clear();
             textViewRes.setText(res);
         }
     };
