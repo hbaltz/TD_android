@@ -1,22 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context="com.example.formation.imc.MainActivity"
-    tools:showIn="@layout/activity_main">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        tools:context="com.example.formation.imc.MainActivity"
+        tools:showIn="@layout/activity_main">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/poidsTxt"
+                android:textStyle="bold"
+                android:textColor="#FF0000"
+                android:gravity="center"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_weight="1"
+                android:id="@+id/editPoids" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/poidsTxt"
+            android:id="@+id/tailleTxt"
             android:textStyle="bold"
             android:textColor="#FF0000"
             android:gravity="center"/>
@@ -25,86 +53,65 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:layout_weight="1"
-            android:id="@+id/editPoids" />
+            android:ems="10"
+            android:id="@+id/editTaille"
+            android:layout_weight="1" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/tailleTxt"
-        android:textStyle="bold"
-        android:textColor="#FF0000"
-        android:gravity="center"/>
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/editTaille"
-        android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <RadioGroup
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkedButton="@+id/radioButtonC"
-        android:orientation="horizontal">
-
-        <RadioButton
+        <RadioGroup
+            android:id="@+id/group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonM"
-            android:checked="true" />
+            android:checkedButton="@+id/radioButtonC"
+            android:orientation="horizontal">
 
-        <RadioButton
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioButtonM"
+                android:checked="true" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioButtonC"
+                android:checked="false" />
+
+        </RadioGroup>
+
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonC"
+            android:id="@+id/checkBoxMF"
             android:checked="false" />
 
-    </RadioGroup>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBoxMF"
-        android:checked="false" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonIMC"
+                android:layout_marginLeft="25dip"
+                android:layout_marginRight="25dip"/>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonRAZ"
+                android:layout_marginLeft="25dip"
+                android:layout_marginRight="25dip"/>
 
-        <Button
+        </LinearLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonIMC"
-            android:layout_marginLeft="25dip"
-            android:layout_marginRight="25dip"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonRAZ"
-            android:layout_marginLeft="25dip"
-            android:layout_marginRight="25dip"/>
-
+            android:id="@+id/textViewRes"
+            android:layout_marginTop="33dp" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewRes"
-        android:layout_marginTop="33dp" />
-</LinearLayout>
+    
+</ScrollView>
