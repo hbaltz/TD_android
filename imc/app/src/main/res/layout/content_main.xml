@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.formation.TpHb.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/my_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/poidsTxt"
+        android:layout_below="@+id/my_text_view"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editTaille"
+        android:layout_below="@+id/tailleTxt"
+        android:layout_alignLeft="@+id/editPoids"
+        android:layout_alignStart="@+id/editPoids" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/tailleTxt"
+        android:layout_below="@+id/editPoids"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editPoids"
+        android:layout_below="@+id/poidsTxt"
+        android:layout_centerHorizontal="true" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButtonM"
+        android:layout_below="@+id/editTaille"
+        android:layout_alignLeft="@+id/editTaille"
+        android:layout_alignStart="@+id/editTaille"
+        android:layout_marginTop="29dp"
+        android:checked="true" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButtonC"
+        android:layout_alignBottom="@+id/radioButtonM"
+        android:layout_toRightOf="@+id/radioButtonM"
+        android:layout_toEndOf="@+id/radioButtonM"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxMF"
+        android:layout_below="@+id/radioButtonM"
+        android:layout_alignLeft="@+id/radioButtonM"
+        android:layout_alignStart="@+id/radioButtonM"
+        android:checked="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonIMC"
+        android:layout_below="@+id/checkBoxMF"
+        android:layout_alignLeft="@+id/checkBoxMF"
+        android:layout_alignStart="@+id/checkBoxMF"
+        android:layout_marginTop="44dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRAZ"
+        android:layout_below="@+id/buttonIMC"
+        android:layout_alignLeft="@+id/buttonIMC"
+        android:layout_alignStart="@+id/buttonIMC"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewRes"
+        android:layout_below="@+id/buttonRAZ"
+        android:layout_alignLeft="@+id/buttonRAZ"
+        android:layout_alignStart="@+id/buttonRAZ"
+        android:layout_marginTop="33dp" />
+</RelativeLayout>
