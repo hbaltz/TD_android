@@ -89,14 +89,34 @@ public class MainActivity extends AppCompatActivity{
         // Attribution des listeners :
         buttonIMC.setOnClickListener(buttonIMCListener);
         buttonRAZ.setOnClickListener(buttonRAZListener);
-        tailleTxt.addTextChangedListener(textWatcher);
-        poidsTxt.addTextChangedListener(textWatcher);
+        editTaille.addTextChangedListener(textWatcher);
+        editPoids.addTextChangedListener(textWatcher);
         checkBoxMF.setOnClickListener(checkedListener);
+
+        // Désactivation du bouton imc qui ne sera actif que sous certaines conditions :
+        buttonIMC.setEnabled(false);
     }
+
+    /**
+     * Gestion des évenements :
+     */
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            // On récupère la taille
+            String t = editPoids.getText().toString();
+            // On récupère le poids
+            String p = editTaille.getText().toString();
+
+            if (!t.isEmpty() && !p.isEmpty()){
+                buttonIMC.setEnabled(true);
+            }
+            if (t.isEmpty() || p.isEmpty()){
+                buttonIMC.setEnabled(false);
+            }
+
             textViewRes.setText(res);
         }
         @Override
@@ -158,4 +178,10 @@ public class MainActivity extends AppCompatActivity{
                 textViewRes.setText(res);
         }
     };
+
+    /**
+     *  Fonctionnalités :
+     */
+
+
 }
