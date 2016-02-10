@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import dataccess.enreg_gens_DAO;
+import dataobjects.enreg_gens;
+
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
