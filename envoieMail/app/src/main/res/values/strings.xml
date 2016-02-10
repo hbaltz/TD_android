@@ -3,4 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="bt">Envoyer</string>
     <string name="mail">Votre message</string>
+    <string name="to">destinaire</string>
+    <string name="cc">destinataire</string>
+    <string name="sjt">Test trop cool</string>
 </resources>
