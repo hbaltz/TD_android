@@ -2,14 +2,24 @@ package com.example.formation.localisation;
 
 import android.content.Context;
 import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
+
+    private LocationManager lm;
+
+    private double latitude;
+    private double longitude;
+    private double altitude;
+    private float accuracy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,19 +27,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Accès au service de localisation :
-        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 
         // Récupération des fournisseurs de position utilisables :
         ArrayList<LocationProvider> providers = new ArrayList<LocationProvider>();
-        ArrayList<String> names = (ArrayList<String>) locationManager.getProviders(true);
+        ArrayList<String> names = (ArrayList<String>) lm.getProviders(true);
 
-        for(String name : names) {
-            providers.add(locationManager.getProvider(name));
+        for (String name : names) {
+            providers.add(lm.getProvider(name));
         }
-        
+
         /**
-         * Définition des critères pour la sélection du fournisseur
+         * Définition des critères pour la sélection du fournisseur (non utilisé pour le moment)
          */
 
         Criteria critere = new Criteria();
@@ -54,7 +64,50 @@ public class MainActivity extends AppCompatActivity {
         // Est-ce que le fournisseur doit être capable de donner une vitesse ?
         critere.setSpeedRequired(true);
 
+    }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+        altitude = location.getAltitude();
+        accuracy = location.getAccuracy();
 
+        String msg = String.format(
+                getResources().getString(R.string.new_location), latitude,
+                longitude, altitude, accuracy);
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        String newStatus = "";
+        switch (status) {
+            case LocationProvider.OUT_OF_SERVICE:
+                newStatus = "OUT_OF_SERVICE";
+                break;
+            case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                newStatus = "TEMPORARILY_UNAVAILABLE";
+                break;
+            case LocationProvider.AVAILABLE:
+                newStatus = "AVAILABLE";
+                break;
+        }
+        String msg = String.format(getResources().getString(R.string.provider_disabled), provider, newStatus);
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        String msg = String.format(
+                getResources().getString(R.string.provider_enabled), provider);
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        String msg = String.format(
+                getResources().getString(R.string.provider_disabled), provider);
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
