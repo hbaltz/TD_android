@@ -11,6 +11,7 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity{
     private double altitude;
     private float accuracy;
     private ArrayList<LocationProvider> providers;
+
+    private String msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +89,11 @@ public class MainActivity extends AppCompatActivity{
                 altitude = location.getAltitude();
                 accuracy = location.getAccuracy();
 
-                String msg = String.format(
+                msg = String.format(
                         getResources().getString(R.string.new_location), latitude,
                         longitude, altitude, accuracy);
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+                Log.d("GPS",msg);
             }
 
             @Override
@@ -106,24 +110,26 @@ public class MainActivity extends AppCompatActivity{
                         newStatus = "AVAILABLE";
                         break;
                 }
-                String msg = String.format(getResources().getString(R.string.provider_disabled), provider, newStatus);
+                msg = String.format(getResources().getString(R.string.provider_disabled), provider, newStatus);
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Log.d("GPS", msg);
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-                String msg = String.format(
+                msg = String.format(
                         getResources().getString(R.string.provider_enabled), provider);
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Log.d("GPS", msg);
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-                String msg = String.format(
+                msg = String.format(
                         getResources().getString(R.string.provider_disabled), provider);
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Log.d("GPS", msg);
             }
         });
     }
-
 }
