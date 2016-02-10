@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">envoieMail</string>
+    <string name="action_settings">Settings</string>
+    <string name="bt">Envoyer</string>
+    <string name="mail">Votre message</string>
+</resources>
