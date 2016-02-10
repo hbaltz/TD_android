@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             emailIntent.setData(Uri.parse("mailto:"));
             emailIntent.setType("text/plain");
 
-
             emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
             emailIntent.putExtra(Intent.EXTRA_CC, CC);
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, sjt);
