@@ -1,18 +1,21 @@
 package com.example.formation.localisation;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity{
 
     private LocationManager lm;
 
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private double longitude;
     private double altitude;
     private float accuracy;
+    private ArrayList<LocationProvider> providers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
         // Récupération des fournisseurs de position utilisables :
-        ArrayList<LocationProvider> providers = new ArrayList<LocationProvider>();
+        providers = new ArrayList<LocationProvider>();
         ArrayList<String> names = (ArrayList<String>) lm.getProviders(true);
 
         for (String name : names) {
@@ -64,50 +68,62 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Est-ce que le fournisseur doit être capable de donner une vitesse ?
         critere.setSpeedRequired(true);
 
-    }
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
 
-    @Override
-    public void onLocationChanged(Location location) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        altitude = location.getAltitude();
-        accuracy = location.getAccuracy();
-
-        String msg = String.format(
-                getResources().getString(R.string.new_location), latitude,
-                longitude, altitude, accuracy);
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        String newStatus = "";
-        switch (status) {
-            case LocationProvider.OUT_OF_SERVICE:
-                newStatus = "OUT_OF_SERVICE";
-                break;
-            case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                newStatus = "TEMPORARILY_UNAVAILABLE";
-                break;
-            case LocationProvider.AVAILABLE:
-                newStatus = "AVAILABLE";
-                break;
+            return;
         }
-        String msg = String.format(getResources().getString(R.string.provider_disabled), provider, newStatus);
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60000, 150, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                altitude = location.getAltitude();
+                accuracy = location.getAccuracy();
+
+                String msg = String.format(
+                        getResources().getString(R.string.new_location), latitude,
+                        longitude, altitude, accuracy);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                String newStatus = "";
+                switch (status) {
+                    case LocationProvider.OUT_OF_SERVICE:
+                        newStatus = "OUT_OF_SERVICE";
+                        break;
+                    case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                        newStatus = "TEMPORARILY_UNAVAILABLE";
+                        break;
+                    case LocationProvider.AVAILABLE:
+                        newStatus = "AVAILABLE";
+                        break;
+                }
+                String msg = String.format(getResources().getString(R.string.provider_disabled), provider, newStatus);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                String msg = String.format(
+                        getResources().getString(R.string.provider_enabled), provider);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                String msg = String.format(
+                        getResources().getString(R.string.provider_disabled), provider);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    @Override
-    public void onProviderEnabled(String provider) {
-        String msg = String.format(
-                getResources().getString(R.string.provider_enabled), provider);
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        String msg = String.format(
-                getResources().getString(R.string.provider_disabled), provider);
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
 }
