@@ -48,4 +48,9 @@ public class enreg_gens {
         setNom(Nom);
         setPrenom(Prenom);
     }
+
+    @Override
+    public String toString(){
+        return ("id : "+ this.getId() +   " Nom : " + this.getNom() +  " Prénom : " + this.getPrenom());
+    }
 }

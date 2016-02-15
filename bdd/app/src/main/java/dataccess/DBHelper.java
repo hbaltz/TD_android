@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     //utilisation du modèle de données
-    public static final String DB_NAME = "/mnt/DB_ING2.db";
+    public static final String DB_NAME = "/data/data/com.example.formation.bdd/DB_ING2.db";
     public static final int DB_VERSION = 1;
 
     //constructor
