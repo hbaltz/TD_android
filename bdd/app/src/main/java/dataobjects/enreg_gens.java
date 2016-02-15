@@ -1,7 +1,7 @@
 package dataobjects;
 
 /**
- * Created by formation on 10/02/2016.
+ * Created by hbaltz on 10/02/2016.
  */
 
 public class enreg_gens {
