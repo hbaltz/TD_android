@@ -34,8 +34,6 @@ public class EnregistrementDataAccessObject {
         this.datasource = datasource;
     }
 
-
-
     public synchronized enreg_gens create(enreg_gens objet) throws SQLException {
         //on copie les champs de l'objet dans les colonnes de la table.
         ContentValues values=new ContentValues();
@@ -53,7 +51,6 @@ public class EnregistrementDataAccessObject {
         return objet;
 
     }
-
 
     public synchronized enreg_gens update(enreg_gens objet){
 
@@ -84,7 +81,6 @@ public class EnregistrementDataAccessObject {
         };
         datasource.getDB().delete(TABLE_NAME, clause, clauseArgs);
     }
-
 
     public enreg_gens read(enreg_gens objet){
 
@@ -132,5 +128,4 @@ public class EnregistrementDataAccessObject {
 
         return liste_enregistrement;
     }
-
 }

@@ -48,5 +48,4 @@ public class enreg_gens {
         setNom(Nom);
         setPrenom(Prenom);
     }
-
 }
