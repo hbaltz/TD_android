@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import dataobjects.enreg_gens;
+import dataccess.EnregistrementDataAccessObject;
 
 /**
  * Created by hbaltz on 10/02/2016.
@@ -74,7 +75,7 @@ public class DataSource {
     }
 
     //factory
-    public enreg_gens_DAO newEnregistrementhDataAccessObject(){
+    public enreg_gens_DAO new EnregistrementhDataAccessObject(){
         return new enreg_gens_DAO(this);
     }
 }
