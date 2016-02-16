@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <Button
         android:id="@+id/btnCapture"
@@ -11,8 +12,9 @@
         android:text="Camera" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:id="@+id/photoResultView"
+        android:layout_weight="0.85" />
 
 </LinearLayout>

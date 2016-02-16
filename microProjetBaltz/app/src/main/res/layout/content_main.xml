@@ -5,7 +5,8 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context="com.example.formation.microprojetbaltz.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,6 +36,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkPhoto" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/photoResultView"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.47" />
 
     <Button
         android:layout_width="wrap_content"
