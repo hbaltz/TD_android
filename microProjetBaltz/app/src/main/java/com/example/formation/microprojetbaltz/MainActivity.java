@@ -32,9 +32,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import dataccess.DataSource;
 import dataccess.EnregistrementDataAccessObject;
+import dataobjects.enreg_info;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -185,6 +187,28 @@ public class MainActivity extends AppCompatActivity{
     private View.OnClickListener buttonEnvListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            /*
+            // On récupère les information de position
+            Location location;
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            */
+
+            // On récupére les autre inforamtion
+            String D = editDesc.getText().toString();
+
+            //L'identifiant "-1" dit à SQLite de créer un nouvel identifiant en autoincrémentation avec ORMlite. Inutile avec SQlite.
+            enreg_info mEnregistrement1 = new enreg_info(-1, 40.2, 30.2, D);
+
+            //Stockage des attributs de l'objet dans la base de données
+            mEnregistrementDataAccessObject.create(mEnregistrement1);
+
+            //Controle de l'écriture dans la base de données
+            List<enreg_info> liste_enregistrement = mEnregistrementDataAccessObject.readAll();
+            for (enreg_info mEnregistrement : liste_enregistrement) {
+                Log.w("CONTROLE", mEnregistrement.toString() + "\n");
+            }
+
             Toast.makeText(MainActivity.this, "Merci", Toast.LENGTH_SHORT).show();
         }
     };
