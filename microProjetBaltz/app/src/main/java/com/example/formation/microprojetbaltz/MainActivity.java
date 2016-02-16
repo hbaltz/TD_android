@@ -38,6 +38,10 @@ import dataccess.DataSource;
 import dataccess.EnregistrementDataAccessObject;
 import dataobjects.enreg_info;
 
+//TODO mieux récupérer la position
+//TODO ajouter Type liste ou raidoBouton
+//TODO google maps dans nouvelle fenêtre
+
 public class MainActivity extends AppCompatActivity{
 
     private TextView textPosition, textEtat, textDesc;
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity{
 
     private LocationManager lm;
 
-    private double latitude, longitude, altitude;
+    private double latitude = 49.48, longitude = 3.91, altitude; //Si Gps pas actif centre de Amifontaine de par défaut
     private float accuracy;
     private ArrayList<LocationProvider> providers;
 
@@ -190,8 +194,9 @@ public class MainActivity extends AppCompatActivity{
             // On récupére les autre inforamtion
             String D = editDesc.getText().toString();
 
+
             //L'identifiant "-1" dit à SQLite de créer un nouvel identifiant en autoincrémentation avec ORMlite. Inutile avec SQlite.
-            enreg_info mEnregistrement1 = new enreg_info(-1, longitude, latitude, D);
+            enreg_info mEnregistrement1 = new enreg_info(-1, longitude, latitude, D, "NC",mCurrentPhotoPath);
 
             //Stockage des attributs de l'objet dans la base de données
             mEnregistrementDataAccessObject.create(mEnregistrement1);
