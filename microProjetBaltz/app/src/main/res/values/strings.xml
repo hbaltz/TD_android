@@ -6,6 +6,6 @@
     <string name="provider_new_status">The provider %1$s has a new status %2$s</string>
     <string name="provider_enabled">The provider %s is enabled</string>
     <string name="desc">Description du problème</string>
-    <string name="photo">Voulez-vous prendre une photo ?</string>
+    <string name="photo">Prendre une photo ?</string>
     <string name="env">Envoyer</string>
 </resources>

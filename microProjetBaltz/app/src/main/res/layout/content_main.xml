@@ -32,10 +32,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/editDesc" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkPhoto" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -47,7 +43,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonEnv" />
+        android:id="@+id/buttonPhoto" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonEnv" />
 
 </LinearLayout>

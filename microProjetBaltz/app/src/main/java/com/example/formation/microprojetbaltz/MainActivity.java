@@ -33,30 +33,31 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import dataccess.DataSource;
+import dataccess.EnregistrementDataAccessObject;
+
 public class MainActivity extends AppCompatActivity{
 
-    private TextView textPosition = null;
-    private TextView textEtat = null;
-    private TextView textDesc = null;
-    private EditText editDesc = null;
-    private CheckBox checkPhoto = null;
-    private Button buttonEnv = null;
+    private TextView textPosition, textEtat, textDesc;
+    private EditText editDesc;
+    private Button buttonEnv, buttonPhoto ;
+    private ImageView imageview ;
 
     private LocationManager lm;
 
-    private double latitude;
-    private double longitude;
-    private double altitude;
+    private double latitude, longitude, altitude;
     private float accuracy;
     private ArrayList<LocationProvider> providers;
 
     private String msg, desc, env, photo;
 
-    private static int count = 0;
-    private int TAKE_PHOTO_CODE = 0;
     private int CAMERA_PIC_REQUEST = 2;
 
     private String mCurrentPhotoPath = "/data/data/com.example.formation.microprojetbaltz/picFolder/";
+
+    // Variables pour la gestion de la base de données SQLite
+    DataSource mdatasource = null;
+    EnregistrementDataAccessObject mEnregistrementDataAccessObject=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +81,27 @@ public class MainActivity extends AppCompatActivity{
         textEtat = (TextView)findViewById(R.id.textEtat);
         textDesc = (TextView)findViewById(R.id.textDesc);
         editDesc = (EditText)findViewById(R.id.editDesc);
-        checkPhoto = (CheckBox)findViewById(R.id.checkPhoto);
+        buttonPhoto = (Button)findViewById(R.id.buttonPhoto);
         buttonEnv = (Button)findViewById(R.id.buttonEnv);
 
         // Remplissage des zones de texte :
         textDesc.setText(desc);
         editDesc.setHint(desc);
-        checkPhoto.setText(photo);
+        buttonPhoto.setText(photo);
         buttonEnv.setText(env);
 
         // Attribution des listeners :
         buttonEnv.setOnClickListener(buttonEnvListener);
+        buttonPhoto.setOnClickListener(buttonPhotoListener);
+
+        // Instanciation de la base de données SQLite
+        mdatasource = new DataSource(this);
+        mEnregistrementDataAccessObject = mdatasource.newEnregistrementhDataAccessObject();
+        mdatasource.open();
+
+        /**
+         * Gestion de la postion GPS
+         */
 
         for (String name : names) {
             providers.add(lm.getProvider(name));
@@ -144,7 +155,7 @@ public class MainActivity extends AppCompatActivity{
                 Log.d("GPS", msg);
             }
 
-            // Si le gps est activé
+            // Si le gps s'active
             @Override
             public void onProviderEnabled(String provider) {
                 msg = String.format(
@@ -154,7 +165,7 @@ public class MainActivity extends AppCompatActivity{
                 Log.d("GPS", msg);
             }
 
-            // Si le gps est désactivé
+            // Si le gps se désactive
             @Override
             public void onProviderDisabled(String provider) {
                 msg = String.format(
@@ -166,18 +177,31 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    // Uniquement pour le bouton env :
+    /**
+     * Gestion des évenements :
+     */
+
+    // Gestion du clique le bouton env :
     private View.OnClickListener buttonEnvListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(!checkPhoto.isChecked()) {
-                Toast.makeText(MainActivity.this, "Merci", Toast.LENGTH_SHORT).show();
-            }else{
-                takephoto();
-            }
+            Toast.makeText(MainActivity.this, "Merci", Toast.LENGTH_SHORT).show();
         }
     };
 
+    // Gestion du clique le boutton photo :
+    private View.OnClickListener buttonPhotoListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            takephoto();
+        }
+    };
+
+    /**
+     * Utilitaires :
+     */
+
+    // Gestion de la prise de photo
     public void takephoto() {
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -200,6 +224,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    // Pour afficher la photo qui a été prise
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -220,13 +245,13 @@ public class MainActivity extends AppCompatActivity{
                 Bitmap image = BitmapFactory.decodeFile(mCurrentPhotoPath);
                 thumbnail = ThumbnailUtils.extractThumbnail(image, 100, 100);
 
-                ImageView imageview = (ImageView) findViewById(R.id.photoResultView);
+                imageview = (ImageView) findViewById(R.id.photoResultView);
                 imageview.setImageBitmap(thumbnail);
-
             }
         }
     }
 
+    // Pour créer un File image au bon format :
     private File createImageFile() throws IOException {
         //Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
