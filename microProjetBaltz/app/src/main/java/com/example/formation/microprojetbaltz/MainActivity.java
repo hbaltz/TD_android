@@ -187,18 +187,11 @@ public class MainActivity extends AppCompatActivity{
     private View.OnClickListener buttonEnvListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            /*
-            // On récupère les information de position
-            Location location;
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-            */
-
             // On récupére les autre inforamtion
             String D = editDesc.getText().toString();
 
             //L'identifiant "-1" dit à SQLite de créer un nouvel identifiant en autoincrémentation avec ORMlite. Inutile avec SQlite.
-            enreg_info mEnregistrement1 = new enreg_info(-1, 40.2, 30.2, D);
+            enreg_info mEnregistrement1 = new enreg_info(-1, longitude, latitude, D);
 
             //Stockage des attributs de l'objet dans la base de données
             mEnregistrementDataAccessObject.create(mEnregistrement1);
