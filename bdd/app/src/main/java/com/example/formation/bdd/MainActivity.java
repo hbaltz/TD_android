@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         mdatasource.open();
 
     }
-    
+
     private View.OnClickListener buttonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
             //stockage des attributs de l'objet dans la base de données
             mEnregistrementDataAccessObject.create(mEnregistrement1);
-
 
             //controle de l'écriture dans la base de données
             List<enreg_gens> liste_enregistrement = mEnregistrementDataAccessObject.readAll();
