@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -39,7 +38,7 @@ import dataobjects.enreg_info;
 
 //TODO mieux récupérer la position
 //TODO ajouter Type liste ou raidoBouton
-//TODO google maps dans nouvelle fenêtre
+//TODO google maps dans nouvelle fenêtre a DEBUG
 
 public class MainActivity extends AppCompatActivity{
 
@@ -207,6 +206,10 @@ public class MainActivity extends AppCompatActivity{
             }
 
             Toast.makeText(MainActivity.this, "Merci", Toast.LENGTH_SHORT).show();
+
+            // Test ouverture de la Gmap
+            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+            startActivity(i);
         }
     };
 
