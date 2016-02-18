@@ -57,7 +57,6 @@ public class enreg_info {
         this.Photo = a;
     }
 
-
     // Constructor :
     public enreg_info(int id){
         setId(id);

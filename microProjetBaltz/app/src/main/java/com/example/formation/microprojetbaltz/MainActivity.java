@@ -256,8 +256,8 @@ public class MainActivity extends AppCompatActivity{
                 Log.w("CONTROLE", mEnregistrement.toString() + "\n");
             }
 
+            // Message de remerciement
             Toast.makeText(MainActivity.this, "Merci", Toast.LENGTH_SHORT).show();
-
 
             /**
              * Gestion envoie de mail :
