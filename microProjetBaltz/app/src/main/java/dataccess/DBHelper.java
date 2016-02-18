@@ -10,11 +10,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    //utilisation du modèle de données
+    // Utilisation du modèle de données
     public static final String DB_NAME = "/data/data/com.example.formation.microprojetbaltz/DB_INFO.db";
     public static final int DB_VERSION = 1;
 
-    //constructor
+    // Constructor
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }

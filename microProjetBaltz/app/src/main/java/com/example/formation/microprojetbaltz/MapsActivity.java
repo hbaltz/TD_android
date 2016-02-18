@@ -28,6 +28,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -35,6 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent i = getIntent();
         ArrayList<Integer> latlng = i.getIntegerArrayListExtra("LAT_LNG");
 
+        // Pour chaque localisatin récupérré dans la bdd on ajoute un marqueur sur la carte
         for(int k = 0; k <= latlng.size()-2; k=k+2)
         {
             Integer lat = (Integer)latlng.get(k);
@@ -46,7 +49,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng mark = new LatLng(lat, lng);
             mMap.addMarker(new MarkerOptions().position(mark).title("Report"));
         }
-
 
         LatLng Amifontaine = new LatLng(49.48,3.91);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Amifontaine));

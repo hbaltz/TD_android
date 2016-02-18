@@ -39,7 +39,11 @@ import dataccess.EnregistrementDataAccessObject;
 import dataobjects.enreg_info;
 
 public class MainActivity extends AppCompatActivity{
+    /**
+     * Initialisation des variables :
+     */
 
+    // Variables de vues
     private TextView textPosition, textEtat, textDesc, textType;
     private EditText editDesc;
     private Button buttonEnv, buttonPhoto, buttonVis ;
@@ -47,16 +51,18 @@ public class MainActivity extends AppCompatActivity{
     private RadioButton radioButtonP,radioButtonD,radioButtonA;
     private RadioGroup group;
 
+    // Variable pour la localisation :
     private LocationManager lm;
-
     private double latitude = 49.48, longitude = 3.91, altitude; //Si Gps pas actif centre de Amifontaine de par défaut
     private float accuracy;
     private ArrayList<LocationProvider> providers;
 
+
+    // Variable de tupe string :
     private String msg, desc, env, photo, msgMail, to, cc, sjt, panne, det, aut, type, tValue, vis;
 
+    // Variable pour la prise de photos :
     private int CAMERA_PIC_REQUEST = 2;
-
     private String mCurrentPhotoPath = "/data/data/com.example.formation.microprojetbaltz/picFolder/";
 
     // Variables pour la gestion de la base de données SQLite
@@ -124,10 +130,12 @@ public class MainActivity extends AppCompatActivity{
          * Gestion de la postion GPS
          */
 
+        //Récupération des fournisseurs disponibles :
         for (String name : names) {
             providers.add(lm.getProvider(name));
         }
 
+        // Vérification des permissoons dans le manifest :
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
@@ -137,6 +145,9 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Début de la définition de l'évenemnt sur le gps :
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, new LocationListener() {
 
             // Si la position change
@@ -154,6 +165,8 @@ public class MainActivity extends AppCompatActivity{
                 //textPosition.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
+
+            ////////////////////////////////////////////////////////////////////////////////////////
 
             // Si le gps change d'état
             @Override
@@ -176,6 +189,8 @@ public class MainActivity extends AppCompatActivity{
                 Log.d("GPS", msg);
             }
 
+            ////////////////////////////////////////////////////////////////////////////////////////
+
             // Si le gps s'active
             @Override
             public void onProviderEnabled(String provider) {
@@ -185,6 +200,8 @@ public class MainActivity extends AppCompatActivity{
                 //textEtat.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
+
+            ////////////////////////////////////////////////////////////////////////////////////////
 
             // Si le gps se désactive
             @Override
@@ -209,7 +226,7 @@ public class MainActivity extends AppCompatActivity{
             // On récupére les autre informations
             String D = editDesc.getText().toString();
 
-            // On récupère le type
+            // On récupére le type du problème
             if(group.getCheckedRadioButtonId() == R.id.radioButtonP) {
                 tValue = panne;
             }else if(group.getCheckedRadioButtonId() == R.id.radioButtonD) {
@@ -218,8 +235,8 @@ public class MainActivity extends AppCompatActivity{
                 tValue = aut;
             }
 
-            /*
-            * Gestion envoie bdd :
+            /**
+             * Gestion envoie bdd :
              */
 
             // Création de la requete
@@ -242,8 +259,8 @@ public class MainActivity extends AppCompatActivity{
             Toast.makeText(MainActivity.this, "Merci", Toast.LENGTH_SHORT).show();
 
 
-            /*
-            * Gestion envoie de mail :
+            /**
+             * Gestion envoie de mail :
              */
 
             Log.i("Send email", "");
@@ -268,7 +285,7 @@ public class MainActivity extends AppCompatActivity{
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, sjt);
             emailIntent.putExtra(Intent.EXTRA_TEXT, msgMail);
 
-            // Pour ajouter une pièce jointe définie par une URL
+            // Pour ajouter la photo en pièce que si une photo a été prise :
             if(mCurrentPhotoPath != "/data/data/com.example.formation.microprojetbaltz/picFolder/") {
                 emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:" + mCurrentPhotoPath));
             }
@@ -284,6 +301,8 @@ public class MainActivity extends AppCompatActivity{
         }
     };
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     // Gestion du clique le bouton photo :
     private View.OnClickListener buttonPhotoListener = new View.OnClickListener() {
         @Override
@@ -291,6 +310,8 @@ public class MainActivity extends AppCompatActivity{
             takephoto();
         }
     };
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Gestion du clique le bouton vis :
     private View.OnClickListener buttonVisListener = new View.OnClickListener() {
@@ -304,9 +325,9 @@ public class MainActivity extends AppCompatActivity{
             }
             */
 
-            // Ouverture de la Gmap
+            // Ouverture de la Gmap (lancement de MapACtivity)
             Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-            i.putExtra("LatLng",all);
+            i.putExtra("LatLng",all); // Pour zfficher les marqueurs sur la carte
 
             startActivity(i);
         }
@@ -318,18 +339,19 @@ public class MainActivity extends AppCompatActivity{
 
     // Gestion de la prise de photo
     public void takephoto() {
+
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
+
         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
+            // Création du lieu ou sera stocker l'image
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                // Error occurred while creating the File
+                // Erreur lors de la création du fichier
 
             }
-            // Continue only if the File was successfully created
+            // Continue seulemnt si le fichier a été créé
             if (photoFile != null) {
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
@@ -338,6 +360,8 @@ public class MainActivity extends AppCompatActivity{
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Pour afficher la photo qui a été prise
     @Override
@@ -366,9 +390,11 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     // Pour créer un File image au bon format :
     private File createImageFile() throws IOException {
-        //Create an image file name
+        //Créer une image
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(

@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class DataSource {
 
-    //connexion à la base de données
+    // Connexion à la base de données
 
     private SQLiteDatabase db;
     private final DBHelper helper;
