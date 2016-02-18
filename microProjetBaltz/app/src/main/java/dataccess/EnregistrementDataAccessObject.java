@@ -138,4 +138,28 @@ public class EnregistrementDataAccessObject {
 
         return liste_enregistrement;
     }
+
+    public ArrayList<Integer> getLatLng(){
+
+        //columns
+        String[] Columns = new String[]{LONG,LAT};
+
+        //select query
+        Cursor cursor = datasource.getDB().query(TABLE_NAME,Columns, null, null, null, null,null);
+
+        //Iterate on cursor and retrieve result
+        ArrayList<Integer> liste_enregistrement = new ArrayList<Integer>();
+
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            liste_enregistrement.add(cursor.getInt(0));
+            liste_enregistrement.add(cursor.getInt(1));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return liste_enregistrement;
+    }
 }

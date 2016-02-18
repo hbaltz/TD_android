@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -14,6 +16,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -151,7 +154,7 @@ public class MainActivity extends AppCompatActivity{
                         getResources().getString(R.string.new_location), latitude,
                         longitude, altitude, accuracy);
                 //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
-                textPosition.setText(msg);
+                textPosition.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
 
@@ -172,7 +175,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 msg = String.format(getResources().getString(R.string.provider_disabled), provider, newStatus);
                 //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                textEtat.setText(msg);
+                textEtat.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
 
@@ -182,7 +185,7 @@ public class MainActivity extends AppCompatActivity{
                 msg = String.format(
                         getResources().getString(R.string.provider_enabled), provider);
                 //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                textEtat.setText(msg);
+                textEtat.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
 
@@ -192,7 +195,7 @@ public class MainActivity extends AppCompatActivity{
                 msg = String.format(
                         getResources().getString(R.string.provider_disabled), provider);
                 //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                textEtat.setText(msg);
+                textEtat.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
         });
@@ -206,7 +209,7 @@ public class MainActivity extends AppCompatActivity{
     private View.OnClickListener buttonEnvListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // On récupére les autre inforamtion
+            // On récupére les autre informations
             String D = editDesc.getText().toString();
 
             // On récupère le type
@@ -268,7 +271,7 @@ public class MainActivity extends AppCompatActivity{
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, sjt);
             emailIntent.putExtra(Intent.EXTRA_TEXT, msgMail);
 
-            //pour ajouter une pièce jointe définie par une URL
+            // Pour ajouter une pièce jointe définie par une URL
             if(mCurrentPhotoPath != "/data/data/com.example.formation.microprojetbaltz/picFolder/") {
                 emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:" + mCurrentPhotoPath));
             }
@@ -296,9 +299,17 @@ public class MainActivity extends AppCompatActivity{
     private View.OnClickListener buttonVisListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            ArrayList<Integer> all = mEnregistrementDataAccessObject.getLatLng();
+
+            /*
+            for(Integer j:all){
+                Log.d("LatLng",j.toString());
+            }
+            */
 
             // Test ouverture de la Gmap
             Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+            i.putExtra("LAT_LNG", all);
             startActivity(i);
         }
     };
