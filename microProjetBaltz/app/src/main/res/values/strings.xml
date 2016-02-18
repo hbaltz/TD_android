@@ -1,29 +1,36 @@
 <resources>
+    <!--  Général -->
     <string name="app_name">microProjetBaltz</string>
     <string name="action_settings">Settings</string>
 
+    <!--  Localisation -->
     <string name="new_location">New Location : Latitude = %1$s, Longitude = %2$s, Altitude = %3$s avec une précision de %4$s mètres </string>
     <string name="provider_disabled">The provider %s is disabled</string>
     <string name="provider_new_status">The provider %1$s has a new status %2$s</string>
     <string name="provider_enabled">The provider %s is enabled</string>
 
+    <!--  Description + photo -->
     <string name="desc">Description du problème</string>
     <string name="photo">Prendre une photo ?</string>
     <string name="env">Envoyer</string>
 
+    <!--  Général pour mpas -->
     <string name="title_activity_maps">Map</string>
 
+    <!--  Mail -->
     <string name="mail">Votre message</string>
     <string name="to">destinaire</string>
     <string name="cc">destinataire</string>
     <string name="sjt">[Report]Problème de type : %1$s</string>
     <string name="msgMail">Report d\'un incident de type = %1$s. Description : %2$s, Position = %3$s, %4$s</string>
 
+    <!--  Type de problème -->
     <string name="type">Type de problème</string>
     <string name="panne">Panne</string>
     <string name="det">Détérioration</string>
     <string name="aut">Autre</string>
 
+    <!-- Visualisation -->
     <string name="vis">Visualiser</string>
 
 </resources>

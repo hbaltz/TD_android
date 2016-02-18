@@ -104,6 +104,8 @@ public class enreg_info {
         setPhoto(Photo);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public String toString(){
         return ("id : "+ this.getId() +   " Long : " + this.getLong() +  " Lat : " + this.getLat() + " Description : " + this.getDesc() + " Type : " + this.getType() + " Photo : " + this.getPhoto());

@@ -16,7 +16,7 @@ import dataobjects.enreg_info;
 
 public class EnregistrementDataAccessObject {
 
-    //cette classe sert à faire le lien entre les actions sur les objets et la table de la base de données (insert, update, delete)
+    // Cette classe sert à faire le lien entre les actions sur les objets et la table de la base de données (insert, update, delete)
 
     public static final String ID="ID";
     public static final String LONG="LONG";
@@ -28,7 +28,7 @@ public class EnregistrementDataAccessObject {
 
     private final DataSource datasource;
 
-    //constructor
+    // Constructor
     public EnregistrementDataAccessObject(DataSource datasource){
         this.datasource = datasource;
     }
@@ -53,6 +53,8 @@ public class EnregistrementDataAccessObject {
         return objet;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public synchronized enreg_info update(enreg_info objet){
         //on copie les champs de l'objet dans les colonnes de la table.
         ContentValues values=new ContentValues();
@@ -75,6 +77,8 @@ public class EnregistrementDataAccessObject {
         return objet;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public synchronized void delete(enreg_info objet){
 
         //gestion de la clause "WHERE"
@@ -84,6 +88,8 @@ public class EnregistrementDataAccessObject {
         };
         datasource.getDB().delete(TABLE_NAME, clause, clauseArgs);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public enreg_info read(enreg_info objet){
 
@@ -112,6 +118,8 @@ public class EnregistrementDataAccessObject {
         return objet;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public List<enreg_info> readAll(){
 
         //columns
@@ -134,6 +142,8 @@ public class EnregistrementDataAccessObject {
 
         return liste_enregistrement;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public ArrayList<Double> getLatLng(){
 
