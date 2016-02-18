@@ -10,6 +10,7 @@
     <string name="desc">Description du problème</string>
     <string name="photo">Prendre une photo ?</string>
     <string name="env">Envoyer</string>
+<<<<<<< HEAD
 
     <string name="title_activity_maps">Map</string>
 
@@ -23,4 +24,7 @@
     <string name="panne">Panne</string>
     <string name="det">Détérioration</string>
     <string name="aut">Autre</string>
+=======
+    <string name="title_activity_maps">Map</string>
+>>>>>>> origin/master
 </resources>

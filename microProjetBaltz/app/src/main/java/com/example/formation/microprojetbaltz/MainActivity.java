@@ -39,6 +39,10 @@ import dataccess.EnregistrementDataAccessObject;
 import dataobjects.enreg_info;
 
 //TODO mieux récupérer la position
+<<<<<<< HEAD
+=======
+//TODO ajouter Type liste ou raidoBouton
+>>>>>>> origin/master
 //TODO google maps dans nouvelle fenêtre a DEBUG
 
 public class MainActivity extends AppCompatActivity{
@@ -231,6 +235,7 @@ public class MainActivity extends AppCompatActivity{
 
             Toast.makeText(MainActivity.this, "Merci", Toast.LENGTH_SHORT).show();
 
+<<<<<<< HEAD
 
             /*
             * Gestion envoie de mail :
@@ -273,6 +278,11 @@ public class MainActivity extends AppCompatActivity{
             Intent i = new Intent(getApplicationContext(), MapsActivity.class);
             startActivity(i);
             */
+=======
+            // Test ouverture de la Gmap
+            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+            startActivity(i);
+>>>>>>> origin/master
         }
     };
 
