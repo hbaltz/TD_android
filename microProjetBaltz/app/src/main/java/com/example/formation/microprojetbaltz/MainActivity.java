@@ -38,18 +38,11 @@ import dataccess.DataSource;
 import dataccess.EnregistrementDataAccessObject;
 import dataobjects.enreg_info;
 
-//TODO mieux récupérer la position
-<<<<<<< HEAD
-=======
-//TODO ajouter Type liste ou raidoBouton
->>>>>>> origin/master
-//TODO google maps dans nouvelle fenêtre a DEBUG
-
 public class MainActivity extends AppCompatActivity{
 
     private TextView textPosition, textEtat, textDesc, textType;
     private EditText editDesc;
-    private Button buttonEnv, buttonPhoto ;
+    private Button buttonEnv, buttonPhoto, buttonVis ;
     private ImageView imageview ;
     private RadioButton radioButtonP,radioButtonD,radioButtonA;
     private RadioGroup group;
@@ -60,7 +53,7 @@ public class MainActivity extends AppCompatActivity{
     private float accuracy;
     private ArrayList<LocationProvider> providers;
 
-    private String msg, desc, env, photo, msgMail, to, cc, sjt, panne, det, aut, type, tValue;
+    private String msg, desc, env, photo, msgMail, to, cc, sjt, panne, det, aut, type, tValue, vis;
 
     private int CAMERA_PIC_REQUEST = 2;
 
@@ -90,6 +83,7 @@ public class MainActivity extends AppCompatActivity{
         det = getResources().getString(R.string.det);
         aut = getResources().getString(R.string.aut);
         type = getResources().getString(R.string.type);
+        vis = getResources().getString(R.string.vis);
 
         // Récupération des view :
         textPosition = (TextView)findViewById(R.id.textPosition);
@@ -99,6 +93,7 @@ public class MainActivity extends AppCompatActivity{
         editDesc = (EditText)findViewById(R.id.editDesc);
         buttonPhoto = (Button)findViewById(R.id.buttonPhoto);
         buttonEnv = (Button)findViewById(R.id.buttonEnv);
+        buttonVis = (Button)findViewById(R.id.buttonVis);
         radioButtonP = (RadioButton)findViewById(R.id.radioButtonP);
         radioButtonD = (RadioButton)findViewById(R.id.radioButtonD);
         radioButtonA = (RadioButton)findViewById(R.id.radioButtonA);
@@ -110,6 +105,7 @@ public class MainActivity extends AppCompatActivity{
         editDesc.setHint(desc);
         buttonPhoto.setText(photo);
         buttonEnv.setText(env);
+        buttonVis.setText(vis);
         radioButtonP.setText(panne);
         radioButtonD.setText(det);
         radioButtonA.setText(aut);
@@ -117,6 +113,7 @@ public class MainActivity extends AppCompatActivity{
         // Attribution des listeners :
         buttonEnv.setOnClickListener(buttonEnvListener);
         buttonPhoto.setOnClickListener(buttonPhotoListener);
+        buttonVis.setOnClickListener(buttonVisListener);
 
         // Instanciation de la base de données SQLite
         mdatasource = new DataSource(this);
@@ -221,8 +218,14 @@ public class MainActivity extends AppCompatActivity{
                 tValue = aut;
             }
 
-                //L'identifiant "-1" dit à SQLite de créer un nouvel identifiant en autoincrémentation avec ORMlite. Inutile avec SQlite.
-            enreg_info mEnregistrement1 = new enreg_info(-1, longitude, latitude, D, tValue,mCurrentPhotoPath);
+            // Création de la requete
+            enreg_info mEnregistrement1;
+            if(mCurrentPhotoPath != "/data/data/com.example.formation.microprojetbaltz/picFolder/") {
+                mEnregistrement1 = new enreg_info(-1, longitude, latitude, D, tValue,mCurrentPhotoPath);
+            }else {
+                mEnregistrement1 = new enreg_info(-1, longitude, latitude, D, tValue);
+            }
+
 
             //Stockage des attributs de l'objet dans la base de données
             mEnregistrementDataAccessObject.create(mEnregistrement1);
@@ -235,7 +238,6 @@ public class MainActivity extends AppCompatActivity{
 
             Toast.makeText(MainActivity.this, "Merci", Toast.LENGTH_SHORT).show();
 
-<<<<<<< HEAD
 
             /*
             * Gestion envoie de mail :
@@ -249,7 +251,7 @@ public class MainActivity extends AppCompatActivity{
             sjt = String.format(getResources().getString(R.string.sjt),tValue);
 
             // Récupération du message
-            msgMail = String.format(getResources().getString(R.string.msgMail),tValue,D,mCurrentPhotoPath,
+            msgMail = String.format(getResources().getString(R.string.msgMail),tValue,D,
                     longitude, latitude);
 
             String[] TO = {to};
@@ -263,6 +265,11 @@ public class MainActivity extends AppCompatActivity{
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, sjt);
             emailIntent.putExtra(Intent.EXTRA_TEXT, msgMail);
 
+            //pour ajouter une pièce jointe définie par une URL
+            if(mCurrentPhotoPath != "/data/data/com.example.formation.microprojetbaltz/picFolder/") {
+                emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:" + mCurrentPhotoPath));
+            }
+
             try {
                 startActivity(Intent.createChooser(emailIntent, "Send mail..."));
                 finish();
@@ -271,26 +278,27 @@ public class MainActivity extends AppCompatActivity{
                 Toast.makeText(MainActivity.this,
                         "There is no email client installed.", Toast.LENGTH_SHORT).show();
             }
-
-
-            /*
-            // Test ouverture de la Gmap
-            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(i);
-            */
-=======
-            // Test ouverture de la Gmap
-            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(i);
->>>>>>> origin/master
         }
     };
 
-    // Gestion du clique le boutton photo :
+    // Gestion du clique le bouton photo :
     private View.OnClickListener buttonPhotoListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             takephoto();
+        }
+    };
+
+    // Gestion du clique le bouton vis :
+    private View.OnClickListener buttonVisListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            //TODO google maps dans nouvelle fenêtre a DEBUG
+
+            // Test ouverture de la Gmap
+            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+            startActivity(i);
         }
     };
 

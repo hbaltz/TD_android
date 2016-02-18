@@ -10,7 +10,6 @@
     <string name="desc">Description du problème</string>
     <string name="photo">Prendre une photo ?</string>
     <string name="env">Envoyer</string>
-<<<<<<< HEAD
 
     <string name="title_activity_maps">Map</string>
 
@@ -18,13 +17,13 @@
     <string name="to">destinaire</string>
     <string name="cc">destinataire</string>
     <string name="sjt">[Report]Problème de type : %1$s</string>
-    <string name="msgMail">Report d\'un incident de type = %1$s. Description : %2$s, Photo = %3$s , Position = %4$s, %5$s</string>
+    <string name="msgMail">Report d\'un incident de type = %1$s. Description : %2$s, Position = %3$s, %4$s</string>
 
     <string name="type">Type de problème</string>
     <string name="panne">Panne</string>
     <string name="det">Détérioration</string>
     <string name="aut">Autre</string>
-=======
-    <string name="title_activity_maps">Map</string>
->>>>>>> origin/master
+
+    <string name="vis">Visualiser</string>
+
 </resources>
