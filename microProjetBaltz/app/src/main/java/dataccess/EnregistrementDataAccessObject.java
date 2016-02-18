@@ -1,16 +1,12 @@
 package dataccess;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dataccess.DataSource;
 import dataobjects.enreg_info;
 
 /**
@@ -106,8 +102,8 @@ public class EnregistrementDataAccessObject {
         //read cursor. On copie les valeurs de la table dans l'objet
         cursor.moveToFirst();
         objet.setId(cursor.getInt(0));
-        objet.setLong(cursor.getInt(1));
-        objet.setLat(cursor.getInt(2));
+        objet.setLong(cursor.getDouble(1));
+        objet.setLat(cursor.getDouble(2));
         objet.setDesc(cursor.getString(3));
         objet.setType(cursor.getString(4));
         objet.setPhoto(cursor.getString(5));
@@ -130,7 +126,7 @@ public class EnregistrementDataAccessObject {
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()){
-            liste_enregistrement.add(new enreg_info(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)));
+            liste_enregistrement.add(new enreg_info(cursor.getInt(0), cursor.getDouble(1), cursor.getDouble(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)));
             cursor.moveToNext();
         }
 
@@ -139,7 +135,7 @@ public class EnregistrementDataAccessObject {
         return liste_enregistrement;
     }
 
-    public ArrayList<Integer> getLatLng(){
+    public ArrayList<Double> getLatLng(){
 
         //columns
         String[] Columns = new String[]{LONG,LAT};
@@ -148,13 +144,13 @@ public class EnregistrementDataAccessObject {
         Cursor cursor = datasource.getDB().query(TABLE_NAME,Columns, null, null, null, null,null);
 
         //Iterate on cursor and retrieve result
-        ArrayList<Integer> liste_enregistrement = new ArrayList<Integer>();
+        ArrayList<Double> liste_enregistrement = new ArrayList<Double>();
 
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()){
-            liste_enregistrement.add(cursor.getInt(0));
-            liste_enregistrement.add(cursor.getInt(1));
+            liste_enregistrement.add(cursor.getDouble(0));
+            liste_enregistrement.add(cursor.getDouble(1));
             cursor.moveToNext();
         }
 

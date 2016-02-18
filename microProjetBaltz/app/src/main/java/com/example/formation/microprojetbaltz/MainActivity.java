@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -16,7 +14,6 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -89,9 +86,9 @@ public class MainActivity extends AppCompatActivity{
         vis = getResources().getString(R.string.vis);
 
         // Récupération des view :
-        textPosition = (TextView)findViewById(R.id.textPosition);
-        textEtat = (TextView)findViewById(R.id.textEtat);
-        textDesc = (TextView)findViewById(R.id.textDesc);
+        //textPosition = (TextView)findViewById(R.id.textPosition);
+        //textEtat = (TextView)findViewById(R.id.textEtat); // Utile pour le débogage
+        textDesc = (TextView)findViewById(R.id.textDesc); // Utile pour le débogage
         textType = (TextView)findViewById(R.id.textType);
         editDesc = (EditText)findViewById(R.id.editDesc);
         buttonPhoto = (Button)findViewById(R.id.buttonPhoto);
@@ -153,8 +150,8 @@ public class MainActivity extends AppCompatActivity{
                 msg = String.format(
                         getResources().getString(R.string.new_location), latitude,
                         longitude, altitude, accuracy);
-                //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
-                textPosition.setText(msg); // Utile pour le débogage
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+                //textPosition.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
 
@@ -173,9 +170,9 @@ public class MainActivity extends AppCompatActivity{
                         newStatus = "AVAILABLE";
                         break;
                 }
-                msg = String.format(getResources().getString(R.string.provider_disabled), provider, newStatus);
-                //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                textEtat.setText(msg); // Utile pour le débogage
+                msg = String.format(getResources().getString(R.string.provider_new_status), provider, newStatus);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //textEtat.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
 
@@ -184,8 +181,8 @@ public class MainActivity extends AppCompatActivity{
             public void onProviderEnabled(String provider) {
                 msg = String.format(
                         getResources().getString(R.string.provider_enabled), provider);
-                //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                textEtat.setText(msg); // Utile pour le débogage
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //textEtat.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
 
@@ -194,8 +191,8 @@ public class MainActivity extends AppCompatActivity{
             public void onProviderDisabled(String provider) {
                 msg = String.format(
                         getResources().getString(R.string.provider_disabled), provider);
-                //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                textEtat.setText(msg); // Utile pour le débogage
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //extEtat.setText(msg); // Utile pour le débogage
                 Log.d("GPS", msg);
             }
         });
@@ -299,17 +296,18 @@ public class MainActivity extends AppCompatActivity{
     private View.OnClickListener buttonVisListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            ArrayList<Integer> all = mEnregistrementDataAccessObject.getLatLng();
+            ArrayList<Double> all = mEnregistrementDataAccessObject.getLatLng();
 
-            /*
-            for(Integer j:all){
+             /*
+            for(Double j:all){
                 Log.d("LatLng",j.toString());
             }
             */
 
-            // Test ouverture de la Gmap
+            // Ouverture de la Gmap
             Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-            i.putExtra("LAT_LNG", all);
+            i.putExtra("LatLng",all);
+
             startActivity(i);
         }
     };

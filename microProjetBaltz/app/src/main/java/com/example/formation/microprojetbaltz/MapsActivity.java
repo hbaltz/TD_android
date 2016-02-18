@@ -2,9 +2,7 @@ package com.example.formation.microprojetbaltz;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,6 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng mark = new LatLng(lat, lng);
             mMap.addMarker(new MarkerOptions().position(mark).title("Report"));
         }
+
 
         LatLng Amifontaine = new LatLng(49.48,3.91);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Amifontaine));

@@ -8,6 +8,8 @@
     tools:showIn="@layout/activity_main"
     android:weightSum="1">
 
+    <!-- Utile pour le deboguage localisation GPS
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,6 +20,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textEtat"
         android:layout_marginTop="44dp" />
+
+        -->
 
     <TextView
     android:layout_width="wrap_content"
