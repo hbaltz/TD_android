@@ -23,8 +23,8 @@ public class enreg_info_DAO {
     public static final String PHOTO="PHOTO";
 
     public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + LONG + " INTEGER, "
-            + LAT + " INTEGER, "
+            + LONG + " FLOAT, "
+            + LAT + " FLOAT, "
             + DESC + " TEXT, "
             + TYPE + " TEXT, "
             + PHOTO +" TEXT);";

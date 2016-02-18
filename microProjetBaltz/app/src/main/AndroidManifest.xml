@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.formation.microprojetbaltz">
 
+
+    <uses-library android:name="com.google.android.maps" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -17,6 +22,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBNN_hCXG-90H04cIM5oZ4bai2SMKWGDEc" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -27,6 +41,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/app_name" />
+
     </application>
 
 </manifest>

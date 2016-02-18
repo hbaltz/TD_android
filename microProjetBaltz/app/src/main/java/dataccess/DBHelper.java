@@ -23,8 +23,8 @@ public class DBHelper extends SQLiteOpenHelper {
         String requete = "";
         requete = "CREATE TABLE ENREG_INFO("
                 + "ID Integer PRIMARY KEY AUTOINCREMENT, "
-                + "LONG Integer, "
-                + "LAT Integer, "
+                + "LONG Float, "
+                + "LAT Float, "
                 + "DESC Text, "
                 + "TYPE Text, "
                 + "PHOTO Text"
