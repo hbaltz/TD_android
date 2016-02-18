@@ -218,14 +218,17 @@ public class MainActivity extends AppCompatActivity{
                 tValue = aut;
             }
 
+            /*
+            * Gestion envoie bdd :
+             */
+
             // Création de la requete
             enreg_info mEnregistrement1;
             if(mCurrentPhotoPath != "/data/data/com.example.formation.microprojetbaltz/picFolder/") {
-                mEnregistrement1 = new enreg_info(-1, longitude, latitude, D, tValue,mCurrentPhotoPath);
+                mEnregistrement1 = new enreg_info(-1, longitude, latitude, D, tValue, mCurrentPhotoPath);
             }else {
                 mEnregistrement1 = new enreg_info(-1, longitude, latitude, D, tValue);
             }
-
 
             //Stockage des attributs de l'objet dans la base de données
             mEnregistrementDataAccessObject.create(mEnregistrement1);
@@ -293,8 +296,6 @@ public class MainActivity extends AppCompatActivity{
     private View.OnClickListener buttonVisListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            //TODO google maps dans nouvelle fenêtre a DEBUG
 
             // Test ouverture de la Gmap
             Intent i = new Intent(getApplicationContext(), MapsActivity.class);
